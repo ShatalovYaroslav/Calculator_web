@@ -24,40 +24,26 @@ var GuessView = function (inputFieldID, buttonID, resolutionID) {
         });
 };
 
-//GuessView.prototype.setErrorPosition = function (errorPosit) {
-//    var textField = document.getElementById(this.inputFieldID);
-//
-//    if (textField == null) {
-//        if (textField.selectionStart) {
-//            textField.focus();
-//            textField.setSelectionRange(errorPosit, errorPosit);
-//        }
-//        else
-//            textField.focus();
-//    }
-//    else {
-//        if (textField.createTextRange) {
-//            var r = textField.createTextRange();
-//            r.collapse(true);
-//            r.move('character', errorPosit);
-//            r.select();
-//        }
-//    }
-//}
 GuessView.prototype.setErrorPosition = function (errorPosit) {
     var textField = document.getElementById(this.inputFieldID);
 
-    if(textField == null){
-        console.log("inputFieldID " + this.inputFieldID );
+    if (textField != null) {
+        if (textField.createTextRange) {
+            var r = textField.createTextRange();
+            r.move('character', errorPosit);
+            r.select();
+        }
+        else {
+            if (textField.selectionStart) {
+                textField.focus();
+                textField.setSelectionRange(errorPosit, errorPosit);
+            }
+            else
+                textField.focus();
+        }
     }
+};
 
-    if(textField.createTextRange()){
-        var range = textField.createTextRange();
-        range.collapse(true);
-        range.move('character', errorPosit);
-        range.select();
-    }
-}
 
 GuessView.prototype.onUserSubmittedCalculation = function () {
     console.log("User clicked the button!");
